@@ -1,0 +1,65 @@
+html{
+  height: 100%;
+}
+
+body {
+  background-color: #222;
+  color: white;
+  height: 100%;
+}
+
+#color-box {
+
+  margin: 0 auto;
+  position: relative;
+
+  -webkit-transition: all 0.5s ease-out;  
+     -moz-transition: all 0.5s ease-out;  
+       -o-transition: all 0.5s ease-out; 
+          transition: all 0.5s ease-out;
+
+  background-color: #000;
+
+}
+
+#game {
+  height: 200px;
+
+  font-size: 24px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0 10px 0 10px;
+  line-height: 36px;
+
+}
+
+input {
+  width: 100px;
+  height: 20px;
+
+  display: block;
+  margin: 40px auto 40px auto;
+  text-align: center;
+
+}
+
+*:focus{
+  outline: 0;
+}
+
+button {
+  width: 100px;
+  height: 20px;
+
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.absolute-centered {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
