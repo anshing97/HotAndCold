@@ -40,8 +40,7 @@ function Game () {
 
     $('#color-box').height('0%');
     $('#color-box').width('0%');
-    $("#color-box").css('top','50%');
-    $("#color-box").fadeTo(0,0.25);
+    $('#color-box').css('background-color','#111');
 
     // get a new target num for the game
     this.target_num = this.generate_random_number(MAX)
@@ -65,8 +64,6 @@ function Game () {
     // calculate a percentage for the frame
     $('#color-box').height( new_percentage + '%');
     $('#color-box').width( new_percentage + '%');
-    $('#color-box').css('top', ( 100 - new_percentage ) / 2 + '%');
-    $('#color-box').fadeTo(0.25,1.0);
   }
 
   // pick a random message 
@@ -98,7 +95,6 @@ function Game () {
     $('#color-box ').css('background-color','#23B94D');    
     $('#color-box ').height('100%');
     $('#color-box ').width('100%');
-    $("#color-box").css('top','0%');
   }
 
   this.game_hotter = function () {
