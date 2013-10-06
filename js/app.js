@@ -34,13 +34,13 @@ function Game () {
 
   // initializer 
   this.init = function () {
-    $('h1').html("Pick a number between 1 to " + MAX);
+    $('#message').html("Pick a number between 1 to " + MAX);
     $('input').val('');  
     $("input").prop('disabled', false); 
 
-    $('#color-box').height('0%');
-    $('#color-box').width('0%');
-    $('#color-box').css('background-color','#111');
+    $('#current').height('100px');
+    $('#current').width('100px');
+    $('#current').css('background-color','#111');
 
     // get a new target num for the game
     this.target_num = this.generate_random_number(MAX)
@@ -57,13 +57,13 @@ function Game () {
     var this_step = Math.floor(diff / each_step);
 
     // change the color
-    $('#color-box').css('background-color',COLORS[this_step]);
+    $('#current').css('background-color',COLORS[this_step]);
 
     var new_percentage = 100 - diff; 
 
     // calculate a percentage for the frame
-    $('#color-box').height( new_percentage + '%');
-    $('#color-box').width( new_percentage + '%');
+    $('#current').height( new_percentage + '%');
+    $('#current').width( new_percentage + '%');
   }
 
   // pick a random message 
@@ -76,10 +76,10 @@ function Game () {
   // check for valid input, between 1 to 100  
   this.valid_input = function (input) {
     if ( isNaN(input ) )  {
-      $('h1').html("Please enter a Number");
+      $('#message').html("Please enter a Number");
       return false; 
     } else if ( input < 1 || input > MAX ) {
-      $('h1').html("Please enter a Number between 1 to " + MAX);
+      $('#message').html("Please enter a Number between 1 to " + MAX);
       return false;
     }
 
@@ -89,28 +89,28 @@ function Game () {
 
   // differeng game states 
   this.game_won = function () {
-    $('h1').html(this.pick_message(CONGRATS));
+    $('#message').html(this.pick_message(CONGRATS));
     $("input").prop('disabled', true);
 
-    $('#color-box ').css('background-color','#23B94D');    
-    $('#color-box ').height('100%');
-    $('#color-box ').width('100%');
+    $('#current').css('background-color','#23B94D');    
+    $('#current').height('100%');
+    $('#current').width('100%');
   }
 
   this.game_hotter = function () {
-    $('h1').html(this.pick_message(HOTTER_MSGS));    
+    $('#message').html(this.pick_message(HOTTER_MSGS));    
   }
 
   this.game_colder = function () {
-    $('h1').html(this.pick_message(COLDER_MSGS));    
+    $('#message').html(this.pick_message(COLDER_MSGS));    
   }
 
   this.game_cold = function () {
-    $('h1').html(this.pick_message(COLD_MSGS));
+    $('#message').html(this.pick_message(COLD_MSGS));
   }
 
   this.game_hot = function () {
-    $('h1').html(this.pick_message(HOT_MSGS));
+    $('#message').html(this.pick_message(HOT_MSGS));
   }
 
   // test a number, sent to correct game state
@@ -162,6 +162,8 @@ function Game () {
 $(document).ready( function(){
 
   var this_game = new Game(); 
+
+  $('input').focus();
 
   // make sure it's always focused on input
   $(this).click( function() {
