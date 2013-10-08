@@ -63,7 +63,7 @@ function Game () {
 
   // different game states
   this.game_reset = function ()  {
-    this.update_message("Pick a number between 1 to " + MAX + " and press Enter");
+    this.update_message("Guess a number between 1 to " + MAX + " and press Enter");
 
     $('input').val('');  
     $('input').prop('disabled', false); 
@@ -109,7 +109,7 @@ function Game () {
       if ( this.first_guess() ) {
 
         if ( current_diff < THRESHOLD ) {
-          this.update_message("A really hot start");
+          this.update_message("Nice start. You almost got it.");
         } else {
           this.update_message("Still got a ways go to");
         }
