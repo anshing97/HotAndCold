@@ -8,7 +8,14 @@ header {
   margin: 0 auto;
 
   text-align: center;
+}
 
+/* headers */ 
+
+h1 {
+  font-family: lato, sans-serif;
+  font-weight: 900;
+  font-size: 42px;
 }
 
 hr {
@@ -20,11 +27,9 @@ hr {
   height: 600px;
 
   border: dashed 1px #999;
-
   border-radius: 50%;
 
   position: relative;
-
 }
 
 #current {
@@ -33,15 +38,22 @@ hr {
   height: 100px;
 
   border-radius: 50%;
-  background-color: #F00;
+  background-color: #111;
+
+  -webkit-transition: all 0.5s ease-out;  
+     -moz-transition: all 0.5s ease-out;  
+       -o-transition: all 0.5s ease-out; 
+          transition: all 0.5s ease-out;
+
 }
 
-/* This parent can be any width and height */
+/* center trick 
+   http://css-tricks.com/centering-in-the-unknown */ 
+
 .block {
   text-align: center;
 }
  
-/* The ghost, nudged to maintain perfect centering */
 .block:before {
   content: '';
   display: inline-block;
@@ -50,35 +62,47 @@ hr {
   margin-right: -0.25em; /* Adjusts for spacing */
 }
 
-/* The element to be centered, can
-   also be of any width and height */ 
 .centered {
   display: inline-block;
   vertical-align: middle;
 }
 
+
 #game {
   position: absolute;
-  top: 283px;
-  left: 265px;
+  top: 275px;
+  left: 260px;
+}
+
+input {
+  height: 40px;
+  width: 80px;
+
+
+  color: white;
+  background-color: rgba(1,1,1,0.0);
+  border: 0;
+
+  font-family: lato, sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 3px;
+
+
+  text-align:center; /* make input center */
 }
 
 input:focus {
   outline: 0;
 }
 
-input {
-  height: 34px;
-  width: 70px;
-
-  color: white;
-  background-color: rgba(1,1,1,0.0);
-  border: 0;
-
-  font-size: 30px;
-  text-align:center; /* make input center */
-}
+/* footer */ 
 
 footer {
   margin-top: 30px;
+}
+
+button {
+
+  
 }

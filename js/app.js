@@ -59,11 +59,12 @@ function Game () {
     // change the color
     $('#current').css('background-color',COLORS[this_step]);
 
-    var new_percentage = 100 - diff; 
+    var new_percentage = 100 - diff 
+    var new_diameter = new_percentage / 100 * 500 + 100; 
 
     // calculate a percentage for the frame
-    $('#current').height( new_percentage + '%');
-    $('#current').width( new_percentage + '%');
+    $('#current').height( new_diameter + 'px');
+    $('#current').width( new_diameter + 'px');
   }
 
   // pick a random message 
@@ -77,9 +78,11 @@ function Game () {
   this.valid_input = function (input) {
     if ( isNaN(input ) )  {
       $('#message').html("Please enter a Number");
+      $('#message').effect('shake');
       return false; 
     } else if ( input < 1 || input > MAX ) {
       $('#message').html("Please enter a Number between 1 to " + MAX);
+      $('#message').effect('shake');      
       return false;
     }
 
@@ -90,27 +93,36 @@ function Game () {
   // differeng game states 
   this.game_won = function () {
     $('#message').html(this.pick_message(CONGRATS));
+    $('#message').hide().delay(250).fadeIn(250);
+
     $("input").prop('disabled', true);
 
     $('#current').css('background-color','#23B94D');    
-    $('#current').height('100%');
-    $('#current').width('100%');
+    $('#current').height('600px');
+    $('#current').width('600px');
   }
 
   this.game_hotter = function () {
     $('#message').html(this.pick_message(HOTTER_MSGS));    
+    $('#message').hide().delay(250).fadeIn(250);
+
   }
 
   this.game_colder = function () {
     $('#message').html(this.pick_message(COLDER_MSGS));    
+    $('#message').hide().delay(250).fadeIn(250);
+
   }
 
   this.game_cold = function () {
     $('#message').html(this.pick_message(COLD_MSGS));
+    $('#message').hide().delay(250).fadeIn(250);
   }
 
   this.game_hot = function () {
     $('#message').html(this.pick_message(HOT_MSGS));
+    $('#message').hide().delay(250).fadeIn(250);
+
   }
 
   // test a number, sent to correct game state
