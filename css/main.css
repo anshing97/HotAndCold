@@ -1,5 +1,9 @@
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
 header {
-  margin: 30px 0 30px 0;
+  margin: 30px 0 60px 0;
 }
 
 .container {
@@ -13,14 +17,29 @@ header {
 /* headers */ 
 
 h1 {
-  font-family: lato, sans-serif;
-  font-weight: 900;
   font-size: 42px;
+  color: #333;
 }
 
 hr {
-  margin: 10px 90px;
+  border-top: 1px solid #AAA;
+  margin: 20px 70px;
 }
+
+#message-box {
+  /* give this a height so message's display: none won't effect layout */
+  height: 18px;
+}
+
+h2 {  
+
+  color: #333;
+
+  font-size: 18px;
+  font-family: 'Droid Serif', serif;
+}
+
+/* the circle */ 
 
 #target {
   width: 600px;
@@ -38,7 +57,7 @@ hr {
   height: 100px;
 
   border-radius: 50%;
-  background-color: #111;
+  background-color: #444;
 
   -webkit-transition: all 0.5s ease-out;  
      -moz-transition: all 0.5s ease-out;  
@@ -78,18 +97,16 @@ input {
   height: 40px;
   width: 80px;
 
-
   color: white;
   background-color: rgba(1,1,1,0.0);
   border: 0;
 
-  font-family: lato, sans-serif;
-  font-size: 36px;
-  font-weight: 900;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 100;
+  font-size: 40px;
   letter-spacing: 3px;
 
-
-  text-align:center; /* make input center */
+  text-align: center; /* make input center */
 }
 
 input:focus {
@@ -99,10 +116,30 @@ input:focus {
 /* footer */ 
 
 footer {
-  margin-top: 30px;
+  margin-top: 60px;
 }
 
 button {
+  border-radius: 6px;
+  border: 0px;
 
-  
+  padding: 10px 16px;
+  font-size: 18px;
+
+  border: solid 1px #EEA236;
+
+  color: #FFF;
+  background-color: #F0AD4E;
+}
+
+button:focus {
+  outline: 0;
+}
+
+button:hover {
+  background-color: #E7A74C;
+}
+
+button:active {
+  background-color: #FFAA32;
 }

@@ -4,7 +4,9 @@ function Game () {
   // privates 
   var HOT = 25;
   var MAX = 100; 
-  var COLORS = ['#FF0000','#F4000A','#EA0014','#E0001E','#D60028','#CC0033','#C1003D','#B70047','#AD0051','#A3005B','#990066','#8E0070','#84007A','#7A0084','#70008E','#660099','#5B00A3','#5100AD','#4700B7','#3D00C1','#3200CC','#2800D6','#1E00E0','#1400EA','#1400EA','#0000FF'];
+  // var COLORS = ['#FF0000','#F4000A','#EA0014','#E0001E','#D60028','#CC0033','#C1003D','#B70047','#AD0051','#A3005B','#990066','#8E0070','#84007A','#7A0084','#70008E','#660099','#5B00A3','#5100AD','#4700B7','#3D00C1','#3200CC','#2800D6','#1E00E0','#1400EA','#1400EA','#0000FF'];
+  // var COLORS = ['#D2322D','#CD3734','#C83D3B','#C34342','#BE4849','#BA4E50','#B55457','#B0595E','#AB5F65','#A7656C','#A26A73','#9D707A','#987681','#947B89','#8F8190','#8A8797','#858C9E','#8192A5','#7C98AC','#779DB3','#72A3BA','#6EA9C1','#69AEC8','#64B4CF','#5FBAD6','#5BC0DE'];
+  var COLORS = ['#D2322D','#C6403E','#BA4E50','#AE5C62','#A26A73','#967985','#8A8797','#7E95A8','#72A3BA','#66B1CC','#5BC0DE']
 
   var COLD_MSGS   = ["Nice first guess, but you're still way off",
                      "Wake me up when you get any closer",
@@ -36,11 +38,11 @@ function Game () {
   this.init = function () {
     $('#message').html("Pick a number between 1 to " + MAX);
     $('input').val('');  
-    $("input").prop('disabled', false); 
+    $('input').prop('disabled', false); 
 
     $('#current').height('100px');
     $('#current').width('100px');
-    $('#current').css('background-color','#111');
+    $('#current').css('background-color','#555');
 
     // get a new target num for the game
     this.target_num = this.generate_random_number(MAX)
@@ -89,11 +91,15 @@ function Game () {
     return true; 
   }
 
+  // private function 
+  this.update_message = function ( message ) {
+    $('#message').html(message);
+    $('#message').hide().delay(250).fadeIn(125);
+  }
 
   // differeng game states 
   this.game_won = function () {
-    $('#message').html(this.pick_message(CONGRATS));
-    $('#message').hide().delay(250).fadeIn(250);
+    this.update_message(this.pick_message(CONGRATS));
 
     $("input").prop('disabled', true);
 
@@ -103,26 +109,19 @@ function Game () {
   }
 
   this.game_hotter = function () {
-    $('#message').html(this.pick_message(HOTTER_MSGS));    
-    $('#message').hide().delay(250).fadeIn(250);
-
+    this.update_message(this.pick_message(HOTTER_MSGS));    
   }
 
   this.game_colder = function () {
-    $('#message').html(this.pick_message(COLDER_MSGS));    
-    $('#message').hide().delay(250).fadeIn(250);
-
+    this.update_message(this.pick_message(COLDER_MSGS));    
   }
 
   this.game_cold = function () {
-    $('#message').html(this.pick_message(COLD_MSGS));
-    $('#message').hide().delay(250).fadeIn(250);
+    this.update_message(this.pick_message(COLD_MSGS));    
   }
 
   this.game_hot = function () {
-    $('#message').html(this.pick_message(HOT_MSGS));
-    $('#message').hide().delay(250).fadeIn(250);
-
+    this.update_message(this.pick_message(HOT_MSGS));    
   }
 
   // test a number, sent to correct game state
