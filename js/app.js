@@ -1,51 +1,23 @@
 
 function Game () {
 
-  // privates 
-  var HOT = 25;
-  var MAX = 100; 
-  // var COLORS = ['#FF0000','#F4000A','#EA0014','#E0001E','#D60028','#CC0033','#C1003D','#B70047','#AD0051','#A3005B','#990066','#8E0070','#84007A','#7A0084','#70008E','#660099','#5B00A3','#5100AD','#4700B7','#3D00C1','#3200CC','#2800D6','#1E00E0','#1400EA','#1400EA','#0000FF'];
-  // var COLORS = ['#D2322D','#CD3734','#C83D3B','#C34342','#BE4849','#BA4E50','#B55457','#B0595E','#AB5F65','#A7656C','#A26A73','#9D707A','#987681','#947B89','#8F8190','#8A8797','#858C9E','#8192A5','#7C98AC','#779DB3','#72A3BA','#6EA9C1','#69AEC8','#64B4CF','#5FBAD6','#5BC0DE'];
-  var COLORS = ['#D2322D','#C6403E','#BA4E50','#AE5C62','#A26A73','#967985','#8A8797','#7E95A8','#72A3BA','#66B1CC','#5BC0DE']
+  // constants
+  var THRESHOLD = 25;
+  var MAX = 99; 
+  var COLORS = ['#ff1a12','#f73936','#ed522b','#f75f39','#F3795B','#EA8F48','#ffc403','#28B2C9','#30B8C0','#46C7D3','#79e3ed','#97e6ed']
 
-  var COLD_MSGS   = ["Nice first guess, but you're still way off",
-                     "Wake me up when you get any closer",
-                     "I heard the weather is quite lovely in the South Pole"];
-
-  var HOT_MSGS    = ["Close, very very close",
-                     "Not bad for a first try",
-                     "If you got any hotter I would suggest you buy the lottery"];
-
-  var COLDER_MSGS = ["With the way you're going, I'd reckon you as a winter person",
-                     "It just got a bit chillier",
-                     "You're getting colder", 
-                     "You feel that breeze?"];
-
-  var HOTTER_MSGS = ["Another step towards hotness",
-                     "You're getting hotter",
-                     "You just went from very warm to ver very warm", 
-                     "Hello sunshine! Warmth for everybody"];
-
-  var CONGRATS    = ["You're quite good at this. Want to go at it again?", 
-                     "How did you read my mind?", 
-                     "You got it! Shall we go again?"];
-
-  // publics 
+  // game variables
   this.target_num = null; 
   this.last_num = null; 
 
   // initializer 
   this.init = function () {
-    $('#message').html("Pick a number between 1 to " + MAX);
-    $('input').val('');  
-    $('input').prop('disabled', false); 
-
-    $('#current').height('100px');
-    $('#current').width('100px');
-    $('#current').css('background-color','#555');
 
     // get a new target num for the game
-    this.target_num = this.generate_random_number(MAX)
+    this.target_num = this.generate_random_number(MAX);
+    this.last_num = null;
+
+    this.game_reset();
   }
 
   // generate a random number from 1 to argument 
@@ -53,8 +25,8 @@ function Game () {
     return 1 + Math.floor(Math.random() * max_num );
   }
 
-  // set background color according to diff 
-  this.animate_box = function ( diff ) {
+  // set a new color and size for the circle
+  this.animate_circle = function ( diff ) {
     var each_step = ( 100 / COLORS.length ); 
     var this_step = Math.floor(diff / each_step);
 
@@ -62,66 +34,61 @@ function Game () {
     $('#current').css('background-color',COLORS[this_step]);
 
     var new_percentage = 100 - diff 
-    var new_diameter = new_percentage / 100 * 500 + 100; 
+    var new_diameter = ( new_percentage / 100 * 400 ) + 100; 
 
     // calculate a percentage for the frame
     $('#current').height( new_diameter + 'px');
     $('#current').width( new_diameter + 'px');
   }
 
-  // pick a random message 
-  this.pick_message = function ( array ) {
-    var random = Math.floor(Math.random() * array.length)
-    return array[random];
-  }
-
-
-  // check for valid input, between 1 to 100  
+  // check for valid input, between 1 to MAX  
   this.valid_input = function (input) {
+
     if ( isNaN(input ) )  {
-      $('#message').html("Please enter a Number");
-      $('#message').effect('shake');
+      this.update_message("Please enter a Number");
       return false; 
     } else if ( input < 1 || input > MAX ) {
-      $('#message').html("Please enter a Number between 1 to " + MAX);
-      $('#message').effect('shake');      
+      this.update_message("Please enter a Number between 1 to " + MAX);
       return false;
     }
 
     return true; 
   }
 
-  // private function 
+  // hide and fade in message 
   this.update_message = function ( message ) {
     $('#message').html(message);
-    $('#message').hide().delay(250).fadeIn(125);
+    $('#message').hide().delay(125).fadeIn(125);
   }
 
-  // differeng game states 
+  // different game states
+  this.game_reset = function ()  {
+    this.update_message("Pick a number between 1 to " + MAX + " and press Enter");
+
+    $('input').val('');  
+    $('input').prop('disabled', false); 
+
+    $('#current').height('100px');
+    $('#current').width('100px');
+    $('#current').css('background-color','#555');
+
+    $('#target').css('border-color','#999');
+  }
+
   this.game_won = function () {
-    this.update_message(this.pick_message(CONGRATS));
+    this.update_message("You got it! Shall we go again?");
 
     $("input").prop('disabled', true);
 
-    $('#current').css('background-color','#23B94D');    
-    $('#current').height('600px');
-    $('#current').width('600px');
+    $('#current').height('500px');
+    $('#current').width('500px');
+    $('#current').css('background-color','#59B122');    
+
+    $('#target').css('border-color','#FFF');
   }
 
-  this.game_hotter = function () {
-    this.update_message(this.pick_message(HOTTER_MSGS));    
-  }
-
-  this.game_colder = function () {
-    this.update_message(this.pick_message(COLDER_MSGS));    
-  }
-
-  this.game_cold = function () {
-    this.update_message(this.pick_message(COLD_MSGS));    
-  }
-
-  this.game_hot = function () {
-    this.update_message(this.pick_message(HOT_MSGS));    
+  this.first_guess = function () {
+    return (this.last_num === null)
   }
 
   // test a number, sent to correct game state
@@ -130,33 +97,34 @@ function Game () {
     // do the real work 
     var current_diff = Math.abs(this.target_num - testing_num); 
 
-    // guessed correclty 
+    // guessed correctly 
     if ( current_diff === 0 ) {
 
       this.game_won();
 
     } else {
 
-      // set a background 
-      this.animate_box(current_diff);
+      this.animate_circle(current_diff);
 
-      if ( this.last_num !== null ) {
-        // has a previous guess 
-        var last_diff = Math.abs(this.target_num - this.last_num);
+      if ( this.first_guess() ) {
 
-        if ( current_diff < last_diff ) {
-          this.game_hotter();
+        if ( current_diff < THRESHOLD ) {
+          this.update_message("A really hot start");
         } else {
-          this.game_colder();
+          this.update_message("Still got a ways go to");
         }
 
       } else {
-        // no previous guess
-        if ( current_diff < HOT ) {
-          this.game_hot();
+
+        // has a previous guess to compare
+        var last_diff = Math.abs(this.target_num - this.last_num);
+
+        if ( current_diff < last_diff ) {
+          this.update_message("Getting hotter");
         } else {
-          this.game_cold();
+          this.update_message("Getting colder");
         }
+
       }
     }
 
@@ -186,7 +154,7 @@ $(document).ready( function(){
     this_game = new Game(); 
   });
 
-  // when enter is pressed, test the input
+  // when Enter is pressed, test the input
   $(this).keydown( function (e) {
     if ( e.keyCode === 13 ) {
       var new_num = $('input').val();
