@@ -3,7 +3,7 @@ function Game () {
 
   // constants
   var THRESHOLD = 25;
-  var MAX = 99; 
+  var MAX = 100; 
   var COLORS = ['#ff1a12','#f73936','#ed522b','#f75f39','#F3795B','#EA8F48','#ffc403','#28B2C9','#30B8C0','#46C7D3','#79e3ed','#97e6ed']
 
   // game variables
@@ -45,10 +45,10 @@ function Game () {
   this.valid_input = function (input) {
 
     if ( isNaN(input ) )  {
-      this.update_message("Please enter a Number");
+      this.update_message("Please enter a valid number");
       return false; 
     } else if ( input < 1 || input > MAX ) {
-      this.update_message("Please enter a Number between 1 to " + MAX);
+      this.update_message("Please enter a number between 1 to " + MAX);
       return false;
     }
 
@@ -63,7 +63,7 @@ function Game () {
 
   // different game states
   this.game_reset = function ()  {
-    this.update_message("Guess a number between 1 to " + MAX + " and press Enter");
+    this.update_message("Enter a number between 1 to " + MAX + " and hit Return");
 
     $('input').val('');  
     $('input').prop('disabled', false); 
@@ -109,7 +109,7 @@ function Game () {
       if ( this.first_guess() ) {
 
         if ( current_diff < THRESHOLD ) {
-          this.update_message("Nice start. You almost got it.");
+          this.update_message("Nice guess. You almost got it.");
         } else {
           this.update_message("Still got a ways go to");
         }
