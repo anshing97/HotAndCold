@@ -76,7 +76,7 @@ function Game () {
   }
 
   this.game_won = function () {
-    this.update_message("You got it! Shall we go again?");
+    this.update_message("You got it! Shall we play again?");
 
     $("input").prop('disabled', true);
 
