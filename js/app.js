@@ -141,6 +141,7 @@ function Game () {
 $(document).ready( function(){
 
   var this_game = new Game(); 
+  var enter_pressed = false; 
 
   $('input').focus();
 
@@ -152,17 +153,31 @@ $(document).ready( function(){
   // reset the game
   $('button').click( function () {
     this_game = new Game(); 
+    enter_pressed = false;
   });
 
   // when Enter is pressed, test the input
   $(this).keydown( function (e) {
     if ( e.keyCode === 13 ) {
+
+      enter_pressed = true; 
+
       var new_num = $('input').val();
 
       if ( this_game.valid_input(new_num) ) {
         this_game.test_number(new_num);
       }
+      
+    } else {
+
+      if ( enter_pressed ) {
+        // clear input so users can type numbers without delete 
+        $('input').val('');
+        enter_pressed = false; 
+      }
+  
     }
+
   });
 
 })
