@@ -9,7 +9,7 @@ function Game () {
   // game variables
   this.target_num = null; 
   this.last_num = null; 
-  this.game_ended = false; 
+  this.game_finished = false; 
 
   // initializer 
   this.init = function () {
@@ -75,7 +75,7 @@ function Game () {
 
     $('#target').css('border-color','#999');
 
-    this.game_ended = false; 
+    this.game_finished = false; 
   }
 
   this.game_won = function () {
