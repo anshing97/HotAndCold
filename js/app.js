@@ -180,15 +180,15 @@ $(document).ready( function(){
     } else {
 
       if ( e.keyCode === 8 ) {
-        // allow delete to function as normal afte enter is pressed 
+        // allow delete to function as normal after enter is pressed 
         enter_pressed = false; 
       } else if ( enter_pressed && !this_game.game_finished) {
-        // clear input so users any keyboard press will clear input after a guess  
+        // clear input so any keyboard press will clear input after a guess  
         $('input').val('');
         enter_pressed = false; 
       }
 
-      // prevent browser back on non focused backspace/delete
+      // prevent browser back on non-focused backspace/delete
       if (e.keyCode === 8 && !$(e.target).is("input, textarea")) {
         e.preventDefault();
       }
