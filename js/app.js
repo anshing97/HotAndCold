@@ -188,6 +188,11 @@ $(document).ready( function(){
         enter_pressed = false; 
       }
 
+      // prevent browser back on non focused backspace/delete
+      if (e.keyCode === 8 && !$(e.target).is("input, textarea")) {
+        e.preventDefault();
+      }
+
     }
 
   });
