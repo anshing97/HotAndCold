@@ -9,6 +9,7 @@ function Game () {
   // game variables
   this.target_num = null; 
   this.last_num = null; 
+  this.game_ended = false; 
 
   // initializer 
   this.init = function () {
@@ -73,6 +74,8 @@ function Game () {
     $('#current').css('background-color','#555');
 
     $('#target').css('border-color','#999');
+
+    this.game_ended = false; 
   }
 
   this.game_won = function () {
@@ -85,6 +88,8 @@ function Game () {
     $('#current').css('background-color','#59B122');    
 
     $('#target').css('border-color','#FFF');
+
+    this.game_finished = true; 
   }
 
   this.first_guess = function () {
@@ -162,20 +167,27 @@ $(document).ready( function(){
 
       enter_pressed = true; 
 
-      var new_num = $('input').val();
+      // check if game is still ongoing 
+      if ( !this_game.game_finished ) {
+        var new_num = $('input').val();
 
-      if ( this_game.valid_input(new_num) ) {
-        this_game.test_number(new_num);
+        // check if this is a valid input within 1 to MAX 
+        if ( this_game.valid_input(new_num) ) {
+          this_game.test_number(new_num);
+        }
       }
       
     } else {
 
-      if ( enter_pressed ) {
-        // clear input so users can type numbers without delete 
+      if ( e.keyCode === 8 ) {
+        // allow delete to function as normal afte enter is pressed 
+        enter_pressed = false; 
+      } else if ( enter_pressed && !this_game.game_finished) {
+        // clear input so users any keyboard press will clear input after a guess  
         $('input').val('');
         enter_pressed = false; 
       }
-  
+
     }
 
   });
